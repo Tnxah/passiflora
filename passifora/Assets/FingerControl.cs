@@ -4,123 +4,63 @@ using UnityEngine;
 
 public class FingerControl : MonoBehaviour
 {
-    public Rigidbody2D rb;
+
     Vector3 touchPosition;
-    Vector2 direction;
 
-    bool detecting = false;
-    public Touch currentTouch;
-    //List<Touch> currentTouch = new List<Touch>();
-
-    public bool free = true;
-    
-
-    public static List<Touch> touches;
-
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        if (touches == null)
-        {
-            print("Init " + gameObject.name);
-            touches = new List<Touch>();
-        }
-    }
-
-
-
+    GameObject first;
+    GameObject second;
+    // Update is called once per frame
     void Update()
     {
-
-
-        int i = 0;
-        while (free && i < Input.touchCount)
+        foreach (Touch touch in Input.touches)
         {
-            
-            currentTouch = Input.GetTouch(i);
-            //if (touches.Contains(t))
-            //{
-            //    i++;
-            //    continue;
-            //}
-             if (currentTouch.phase == TouchPhase.Began)
+            touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+            RaycastHit2D hit = Physics2D.Raycast(touchPosition, Camera.main.transform.forward, 100);
+            Debug.DrawRay(touchPosition, Camera.main.transform.forward * 50, Color.green, 5);
+
+            if (touch.fingerId == 0)
             {
-                free = false;
-                touches.Add(currentTouch);
-                //currentTouch = Input.GetTouch(i);
-                //print(t.fingerId + " " + gameObject.name);
-                //print(gameObject.name + " " + currentTouch.phase);
-                
+
+                if (hit && first == null && hit.collider.CompareTag("Player"))
+                {
+                    first = hit.collider.gameObject;
+                }
+                if (first)
+                {
+                    Vector2 direction = (touchPosition - first.transform.position);
+                    first.GetComponent<Rigidbody2D>().velocity = direction * 1000f * Time.deltaTime;
+                }
+            }
+            else if (touch.fingerId == 1)
+            {
+
+                if (hit && second == null && hit.collider.CompareTag("Player"))
+                {
+                    second = hit.collider.gameObject;
+                }
+                if (second)
+                {
+                    Vector2 direction = (touchPosition - second.transform.position);
+                    second.GetComponent<Rigidbody2D>().velocity = direction * 1000f * Time.deltaTime;
+                }
+
+            }
+            if (touch.phase == TouchPhase.Ended)
+            {
+                if (touch.fingerId == 0 && first)
+                {
+                    first.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                    first = null;
+                }
+                else if (touch.fingerId == 1 && second)
+                {
+                    second.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                    second = null;
+                }
+
             }
 
-            i++;
         }
-
-        if (currentTouch.phase == TouchPhase.Ended)
-        {
-            print("ended" + gameObject.name);
-            touches.Remove(currentTouch);
-            free = true;
-        }
-
-
-        //print(gameObject.name);
-
-        //touchPosition = Camera.main.ScreenToWorldPoint(currentTouch.position);
-
-        //RaycastHit2D hit = Physics2D.Raycast(touchPosition, Camera.main.transform.forward, 5000);
-        //Debug.DrawRay(touchPosition, Camera.main.transform.forward * 50, Color.green, 10);
-
-
-        ////////////--------------------------------------------------
-
-        //if (hit.collider != null && hit.collider.GetComponent<FingerControl>() == this)
-        //{
-        //    detecting = true;
-        //}
-
-        //if (detecting)
-        //{
-        //    direction = (touchPosition - transform.position);
-        //    rb.velocity = direction * 50f;
-        //}
-
-
-        //if (currentTouch.phase == TouchPhase.Ended)
-        //{
-        //    rb.velocity = Vector3.zero;
-        //    detecting = false;
-        //    print("End pressing");
-        //}
-
     }
-
-
-
-    //private void Update()
-    //{
-    //    int i = 0;
-    //    while (i < Input.touchCount)
-    //    {
-    //        Touch t = Input.GetTouch(i);
-    //        if (touches.Contains(t))
-    //        {
-    //            i++;
-    //            continue;
-    //        }
-    //        if (t.phase == TouchPhase.Began)
-    //        {
-    //            touches.Add(t);
-    //            print(t.fingerId + " " + gameObject.name);
-    //        }
-    //        if (t.phase == TouchPhase.Ended)
-    //        {
-    //            touches.Remove(t);
-    //        }
-    //        i++;
-    //    }
-    //}
-
-
 
 }

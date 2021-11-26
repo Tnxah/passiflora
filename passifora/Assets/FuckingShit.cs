@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FuckingShit : MonoBehaviour
-{ 
+{
 
     Vector3 touchPosition;
 
@@ -21,40 +21,47 @@ public class FuckingShit : MonoBehaviour
 
 
 
-                     
+
             if (touch.fingerId == 0)
             {
-                
-                if (hit && first == null && hit.collider.gameObject.GetComponent<Player>() != null)
+
+                if (hit && first == null && hit.collider.gameObject.GetComponent<GameObject>() != null)
                 {
                     first = hit.collider.gameObject;
                 }
-                Vector2 direction = (touchPosition - first.transform.position);
-                first.GetComponent<Rigidbody2D>().velocity = direction * 1000f * Time.deltaTime;
+                if (first)
+                {
+                    Vector2 direction = (touchPosition - first.transform.position);
+                    first.GetComponent<Rigidbody2D>().velocity = direction * 1000f * Time.deltaTime;
+                }
+
 
 
             }
             else if (touch.fingerId == 1)
             {
-                    
-                if (hit && second == null && hit.collider.gameObject.GetComponent<Player>() != null)
+
+                if (hit && second == null && hit.collider.gameObject.GetComponent<GameObject>() != null)
                 {
                     second = hit.collider.gameObject;
                 }
+                if (second)
+                {
+                    Vector2 direction = (touchPosition - second.transform.position);
+                    second.GetComponent<Rigidbody2D>().velocity = direction * 1000f * Time.deltaTime;
+                }
 
-                Vector2 direction = (touchPosition - second.transform.position);
-                second.GetComponent<Rigidbody2D>().velocity = direction * 1000f * Time.deltaTime;
 
 
             }
             if (touch.phase == TouchPhase.Ended)
             {
-                if (touch.fingerId == 0)
+                if (touch.fingerId == 0 && first)
                 {
                     first.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                     first = null;
                 }
-                else if (touch.fingerId == 1)
+                else if (touch.fingerId == 1 && second)
                 {
                     second.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                     second = null;
@@ -65,5 +72,5 @@ public class FuckingShit : MonoBehaviour
 
         }
     }
-    
+
 }
