@@ -5,12 +5,23 @@ using UnityEngine;
 public class FingerControl : MonoBehaviour
 {
 
+    public static FingerControl instance;
+
     Vector3 touchPosition;
 
     public GameObject first;
     public GameObject second;
+
+    private void Start()
+    {
+        if (!instance)
+        {
+            instance = this;
+        }
+    }
+
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         foreach (Touch touch in Input.touches)
         {
@@ -28,7 +39,7 @@ public class FingerControl : MonoBehaviour
                 if (first)
                 {
                     Vector2 direction = (touchPosition - first.transform.position);
-                    first.GetComponent<Rigidbody2D>().velocity = direction * 1000f * Time.deltaTime;
+                    first.GetComponent<Rigidbody2D>().velocity = direction * 1000f * Time.fixedDeltaTime;
                 }
             }
             else if (touch.fingerId == 1)
@@ -41,7 +52,7 @@ public class FingerControl : MonoBehaviour
                 if (second)
                 {
                     Vector2 direction = (touchPosition - second.transform.position);
-                    second.GetComponent<Rigidbody2D>().velocity = direction * 1000f * Time.deltaTime;
+                    second.GetComponent<Rigidbody2D>().velocity = direction * 1000f * Time.fixedDeltaTime;
                 }
 
             }
@@ -62,5 +73,17 @@ public class FingerControl : MonoBehaviour
 
         }
     }
+
+    public bool BouthTouched()
+    {
+        if (first && second)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    } 
 
 }

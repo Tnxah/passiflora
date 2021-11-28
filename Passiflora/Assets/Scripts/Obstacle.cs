@@ -14,8 +14,7 @@ public class Obstacle : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            print(SceneManager.GetActiveScene().name);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameManager.instance.OnDeath();
         }
     }
 }
