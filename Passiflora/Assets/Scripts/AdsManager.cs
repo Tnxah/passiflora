@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Advertisements;
@@ -27,36 +25,35 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 
     private void Awake()
     {
-//#if UNITY_EDITOR
-//        return;
-//#endif
-        Advertisement.Initialize(gameID, false, false, this);
+#if UNITY_EDITOR
+        //return;
+#endif
+        debug.text += "start Initialising";
+        Advertisement.Initialize(gameID, true, false, this);
 
 
     }
     void Start()
     {
-        if (GameObject.FindGameObjectsWithTag("AdsManager").Length > 1)
-        {
-            Destroy(this.gameObject);
-        }
         if (instance == null)
         {
             instance = this;
         }
 
-        
+
+        debug.text += "start() add Listener";
         Advertisement.AddListener(this);
+        debug.text += "start() set banner pos";
         Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
-        DontDestroyOnLoad(this);
+
     }
 
-   
+
     public void ShowInterstitial()
     {
         if (Advertisement.IsReady(interstitialId))
         {
-            
+
             Advertisement.Show(interstitialId);
         }
     }
@@ -76,13 +73,13 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 
     public void ShowBanner()
     {
-
+        debug.text += "show banner";
         BannerOptions options = new BannerOptions
         {
             showCallback = OnBannerShown
         };
 
-        Advertisement.Banner.Show(bannerID, options);        
+        Advertisement.Banner.Show(bannerID, options);
     }
 
     private void OnBannerShown()
@@ -94,12 +91,6 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     public void HideBanner()
     {
         Advertisement.Banner.Hide();
-    }
-
-    IEnumerator BannerChecker()
-    {
-        yield return new WaitUntil(() => Advertisement.IsReady(bannerID));
-        ShowBanner();
     }
 
     public void LoadBanner()
@@ -123,31 +114,32 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 
     }
 
-    
+
     void OnBannerError(string message)
     {
         Debug.Log($"Banner Error: {message}");
         debug.text += $"Banner Error: {message}";
-        
+
 
     }
 
     public void OnUnityAdsReady(string placementId)
     {
         print("ADS ARE READY");
-        
+
     }
 
     public void OnUnityAdsDidError(string message)
     {
         print("ERROR " + message);
-        
+        debug.text += ("ERROR " + message);
+
     }
 
     public void OnUnityAdsDidStart(string placementId)
     {
         print("VIDEO STARTED");
-        
+
     }
 
     public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
@@ -170,7 +162,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     public void OnInitializationComplete()
     {
         Debug.Log("Unity Ads initialization complete.");
+        debug.text += "Kek";
         debug.text += "Unity Ads initialization complete.";
+        Debug.Log("======================================");
         LoadBanner();
     }
 
