@@ -26,20 +26,27 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     private void Awake()
     {
 #if UNITY_EDITOR
-        //return;
+        return;
 #endif
+        if (GameObject.FindGameObjectsWithTag("AdsManager").Length > 1)
+        {
+            Destroy(gameObject);
+        }
+
+
         debug.text += "start Initialising";
-        Advertisement.Initialize(gameID, true, false, this);
+        Advertisement.Initialize(gameID, false, false, this);
 
-
+        DontDestroyOnLoad(this);
     }
     void Start()
     {
         if (instance == null)
         {
+          
             instance = this;
         }
-
+        countToAd = Settings.instance.adsCounter;
 
         debug.text += "start() add Listener";
         Advertisement.AddListener(this);

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject obstacleSpawner;
     public GameObject instructionsPanel;
 
-    public float maxSpeed = 650;
+    float maxSpeed = 650;
 
     public float speed = 150;
     public int score = 0;
@@ -22,17 +22,27 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+            
         if (!instance)
         {
+            
             instance = this;
+            
         }
-
+        Initialize();
         StartCoroutine(StartGame());
+        
+    }
 
+    void Initialize()
+    {
+        speed = Settings.instance.startSpeed;
+        maxSpeed = Settings.instance.maxSpeed;
     }
 
     IEnumerator StartGame()
     {
+        
         yield return new WaitUntil(()=> FingerControl.instance.BouthTouched());
 
         obstacleSpawner.SetActive(true);
@@ -64,15 +74,13 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpeedIncreaser()
     {
-        while (true)
-        {
+        
             while (speed < maxSpeed)
             {
-                yield return new WaitForSeconds(10);
+                yield return new WaitForSeconds(5);
                 speed++;
             }
-            
-        }
+         
     }
     public void OnDeath()
     {
