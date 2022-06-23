@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsListener
+public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
 #if UNITY_ANDROID
     string gameID = "4473937";
@@ -18,8 +18,10 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 #endif 
 
     public TextMeshProUGUI debug;
-    public int numberToAd;
-    public int countToAd;
+    [HideInInspector]
+    public int numberToAd = 5;
+    [HideInInspector]
+    public static int countToAd = 1;
     Action onRewardedAdSuccess;
     public static AdsManager instance;
 
@@ -29,9 +31,10 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         //return;
 #endif
         debug.text += "start Initialising";
-        Advertisement.Initialize(gameID, true, false, this);
-
-
+        Advertisement.Initialize(gameID, false, this);
+        LoadBanner();
+        LoadInterstitial();
+        LoadRewarded();
     }
     void Start()
     {
@@ -40,70 +43,49 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             instance = this;
         }
 
-
-        debug.text += "start() add Listener";
-        Advertisement.AddListener(this);
-        debug.text += "start() set banner pos";
-        Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
-
+        ShowBanner();
     }
 
+    private void LoadInterstitial()
+    {
+        Advertisement.Load(interstitialId, this);
+    }
+
+    private void LoadRewarded()
+    {
+        Advertisement.Load(rewardedID, this);
+    }
 
     public void ShowInterstitial()
     {
-        if (Advertisement.IsReady(interstitialId))
-        {
-
-            Advertisement.Show(interstitialId);
-        }
+            Advertisement.Show(interstitialId, this);
     }
 
-    public void ShowRewarded(Action onSuccess)
+    public void ShowRewarded()
     {
-        if (Advertisement.IsReady(rewardedID))
-        {
-            onRewardedAdSuccess = onSuccess;
-            Advertisement.Show(rewardedID);
-        }
-        else
-        {
-            print("Rewarded ad is not awailable");
-        }
+            Advertisement.Show(rewardedID, this);
     }
 
     public void ShowBanner()
     {
         debug.text += "show banner";
-        BannerOptions options = new BannerOptions
-        {
-            showCallback = OnBannerShown
-        };
 
-        Advertisement.Banner.Show(bannerID, options);
+        Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
+        Advertisement.Banner.Show(bannerID);
     }
 
-    private void OnBannerShown()
-    {
-        debug.text += "Banner shown";
-        print("Banner shown");
-    }
 
     public void HideBanner()
     {
-        Advertisement.Banner.Hide();
+        Advertisement.Banner.Hide(false);
     }
 
     public void LoadBanner()
     {
         debug.text += "Banner start loading";
         print("Banner start loading");
-        BannerLoadOptions options = new BannerLoadOptions
-        {
-            loadCallback = OnBannerLoaded,
-            errorCallback = OnBannerError
-        };
 
-        Advertisement.Banner.Load(bannerID, options);
+        Advertisement.Banner.Load(bannerID);
     }
 
     void OnBannerLoaded()
@@ -154,11 +136,6 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         }
     }
 
-    public bool isRewardedReady()
-    {
-        return Advertisement.IsReady(rewardedID);
-    }
-
     public void OnInitializationComplete()
     {
         Debug.Log("Unity Ads initialization complete.");
@@ -172,5 +149,35 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     {
         Debug.Log($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
         debug.text += $"Unity Ads Initialization Failed: {error.ToString()} - {message}";
+    }
+
+    public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnUnityAdsShowStart(string placementId)
+    {
+        print(placementId + " starded showing");
+    }
+
+    public void OnUnityAdsShowClick(string placementId)
+    {
+        print("plus babki");
+    }
+
+    public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
+    {
+        print(placementId + " Show complete");
+    }
+
+    public void OnUnityAdsAdLoaded(string placementId)
+    {
+        print(placementId + " loaded");
+    }
+
+    public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
+    {
+        throw new NotImplementedException();
     }
 }

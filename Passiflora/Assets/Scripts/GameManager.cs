@@ -78,11 +78,11 @@ public class GameManager : MonoBehaviour
     {
         PauseGame();
         deathPanel.SetActive(true);
-        AdsManager.instance.countToAd--;
-        if (AdsManager.instance.countToAd == 0)
+        AdsManager.countToAd--;
+        if (AdsManager.countToAd == 0)
         {
             AdsManager.instance.ShowInterstitial();
-            AdsManager.instance.countToAd = AdsManager.instance.numberToAd;
+            AdsManager.countToAd = AdsManager.instance.numberToAd;
         }
     }
 
