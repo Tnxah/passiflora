@@ -22,13 +22,22 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+
         if (!instance)
         {
-            instance = this;
-        }
 
+            instance = this;
+
+        }
+        Initialize();
         StartCoroutine(StartGame());
 
+    }
+
+    void Initialize()
+    {
+        speed = Settings.instance.startSpeed;
+        maxSpeed = Settings.instance.maxSpeed;
     }
 
     IEnumerator StartGame()
