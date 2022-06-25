@@ -18,10 +18,10 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 #endif 
 
     public TextMeshProUGUI debug;
+    //[HideInInspector]
+    public int numberToAd;
     [HideInInspector]
-    public int numberToAd = 5;
-    [HideInInspector]
-    public static int countToAd = 1;
+    public static int countToAd = 4;
     Action onRewardedAdSuccess;
     public static AdsManager instance;
 
@@ -30,7 +30,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 #if UNITY_EDITOR
         //return;
 #endif
-        debug.text += "start Initialising";
+        print("start Initialising");
         Advertisement.Initialize(gameID, false, this);
         LoadBanner();
         LoadInterstitial();
@@ -44,6 +44,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         }
 
         ShowBanner();
+        numberToAd = Settings.instance.adsCounter;
     }
 
     private void LoadInterstitial()
@@ -70,7 +71,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     {
         debug.text += "show banner";
 
-        Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
+        
         Advertisement.Banner.Show(bannerID);
     }
 
@@ -84,8 +85,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     {
         debug.text += "Banner start loading";
         print("Banner start loading");
-
+        Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
         Advertisement.Banner.Load(bannerID);
+        
     }
 
     void OnBannerLoaded()
@@ -142,7 +144,6 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         debug.text += "Kek";
         debug.text += "Unity Ads initialization complete.";
         Debug.Log("======================================");
-        LoadBanner();
     }
 
     public void OnInitializationFailed(UnityAdsInitializationError error, string message)

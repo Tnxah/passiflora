@@ -14,10 +14,10 @@ public class GameManager : MonoBehaviour
     public GameObject obstacleSpawner;
     public GameObject instructionsPanel;
 
-    public float maxSpeed = 650;
+    public float maxSpeed;
 
-    public float speed = 150;
-    public int score = 0;
+    public float speed;
+    public int score;
 
 
     private void Start()
@@ -42,8 +42,11 @@ public class GameManager : MonoBehaviour
 
     IEnumerator StartGame()
     {
+#if UNITY_EDITOR
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Mouse0));
+#else
         yield return new WaitUntil(()=> FingerControl.instance.BouthTouched());
-
+#endif
         obstacleSpawner.SetActive(true);
         StartCoroutine(ScoreIncreaser());
         StartCoroutine(SpeedIncreaser());
@@ -88,7 +91,7 @@ public class GameManager : MonoBehaviour
         PauseGame();
         deathPanel.SetActive(true);
         AdsManager.countToAd--;
-        if (AdsManager.countToAd == 0)
+        if (AdsManager.countToAd <= 0)
         {
             AdsManager.instance.ShowInterstitial();
             AdsManager.countToAd = AdsManager.instance.numberToAd;
