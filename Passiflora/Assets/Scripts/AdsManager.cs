@@ -67,6 +67,11 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             Advertisement.Show(rewardedID, this);
     }
 
+    public bool RewardedIsReady()
+    {
+        return true;
+    }
+
     public void ShowBanner()
     {
         debug.text += "show banner";
@@ -169,7 +174,14 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
-        print(placementId + " Show complete");
+        //if (adUnitId.Equals(_adUnitId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
+        //{
+        //    Debug.Log("Unity Ads Rewarded Ad Completed");
+        //    // Grant a reward.
+
+        //    // Load another ad:
+        //    Advertisement.Load(_adUnitId, this);
+        //}
     }
 
     public void OnUnityAdsAdLoaded(string placementId)
