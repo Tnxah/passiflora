@@ -20,10 +20,12 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     public TextMeshProUGUI debug;
     //[HideInInspector]
     public int numberToAd;
-    [HideInInspector]
-    public static int countToAd = 4;
+    //[SerializeField]
+    public static int countToAd = 2;
     Action onRewardedAdSuccess;
     public static AdsManager instance;
+
+    private bool rewardedReady;
 
     private void Awake()
     {
@@ -32,9 +34,6 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 #endif
         print("start Initialising");
         Advertisement.Initialize(gameID, false, this);
-        LoadBanner();
-        LoadInterstitial();
-        LoadRewarded();
     }
     void Start()
     {
@@ -42,7 +41,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         {
             instance = this;
         }
-
+        LoadBanner();
+        LoadInterstitial();
+        LoadRewarded();
         ShowBanner();
         numberToAd = Settings.instance.adsCounter;
     }
@@ -59,17 +60,17 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 
     public void ShowInterstitial()
     {
-            Advertisement.Show(interstitialId, this);
+        Advertisement.Show(interstitialId, this);
     }
 
     public void ShowRewarded()
     {
-            Advertisement.Show(rewardedID, this);
+        Advertisement.Show(rewardedID, this);
     }
 
     public bool RewardedIsReady()
     {
-        return true;
+        return rewardedReady;
     }
 
     public void ShowBanner()
@@ -174,18 +175,25 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
-        //if (adUnitId.Equals(_adUnitId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
-        //{
-        //    Debug.Log("Unity Ads Rewarded Ad Completed");
-        //    // Grant a reward.
+        if (placementId.Equals(rewardedID) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
+        {
+            Debug.Log("Unity Ads Rewarded Ad Completed");
+            GameManager.instance.Resurrect();
 
-        //    // Load another ad:
-        //    Advertisement.Load(_adUnitId, this);
-        //}
+            rewardedReady = false;
+            // Load another ad:
+            Advertisement.Load(rewardedID, this);
+        }
     }
 
     public void OnUnityAdsAdLoaded(string placementId)
     {
+        if (placementId.Equals(rewardedID))
+        {
+            print("Rewarded loaded na pewno");
+            rewardedReady = true;
+        }
+
         print(placementId + " loaded");
     }
 

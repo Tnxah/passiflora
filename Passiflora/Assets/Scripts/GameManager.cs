@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,11 +15,14 @@ public class GameManager : MonoBehaviour
     public GameObject obstacleSpawner;
     public GameObject instructionsPanel;
 
+    public Button resurrectButton;
+
     public float maxSpeed;
 
     public float speed;
     public int score;
 
+    public bool resurrected;
 
     private void Start()
     {
@@ -90,12 +94,43 @@ public class GameManager : MonoBehaviour
     {
         PauseGame();
         deathPanel.SetActive(true);
+        if (resurrected)
+        {
+            resurrectButton.gameObject.SetActive(false);
+            FullDeath();
+            return;
+        }
+        if (AdsManager.instance.RewardedIsReady())
+        {
+            resurrectButton.gameObject.SetActive(true);
+            //AdsManager.instance.ShowRewarded();
+        }
+    }
+
+    private void FullDeath()
+    {
         AdsManager.countToAd--;
+        print(AdsManager.countToAd + "COUNT TO AD");
         if (AdsManager.countToAd <= 0)
         {
             AdsManager.instance.ShowInterstitial();
             AdsManager.countToAd = AdsManager.instance.numberToAd;
         }
+
+        resurrected = false;
+    }
+
+    public void Resurrect()
+    {
+        resurrected = true;
+
+        ObstacleSpawner.instance.Clean();
+
+        ResumeGame();
+
+        resurrectButton.gameObject.SetActive(false);
+
+        deathPanel.SetActive(false);
     }
 
     public void Restart()

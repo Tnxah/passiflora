@@ -5,19 +5,31 @@ using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 public class ObstacleSpawner : MonoBehaviour
 {
+    public static ObstacleSpawner instance;
+
     public GameObject obst;
+
+    private List<GameObject> obsts;
 
     float width;
     void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+
+        obsts = new List<GameObject>();
         width = GetComponent<BoxCollider2D>().size.x;
+        print(width + "/" + GetComponent<BoxCollider2D>().size.x);
         StartCoroutine(Spawn());
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     IEnumerator Spawn()
@@ -28,6 +40,15 @@ public class ObstacleSpawner : MonoBehaviour
             GameObject obs = Instantiate(obst, new Vector3(Random.Range(-width / 2, width / 2), transform.position.y, 0), Quaternion.identity);
             obs.GetComponent<Rigidbody2D>().AddForce(Vector2.down * GameManager.instance.speed);
 
+            obsts.Add(obs);
+        }
+    }
+
+    public void Clean()
+    {
+        foreach (var obs in obsts)
+        {
+            Destroy(obs);
         }
     }
 
