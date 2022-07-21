@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     public Button resurrectButton;
 
+    public FingerControl fc;
+
     public float maxSpeed;
 
     public float speed;
@@ -26,13 +28,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-
+ 
         if (!instance)
         {
 
             instance = this;
 
         }
+        fc = GetComponent<FingerControl>();
         Initialize();
         StartCoroutine(StartGame());
 
@@ -94,23 +97,21 @@ public class GameManager : MonoBehaviour
     {
         PauseGame();
         deathPanel.SetActive(true);
-        if (resurrected)
+
+        if (AdsManager.countToAd <= 0)
         {
-            resurrectButton.gameObject.SetActive(false);
-            FullDeath();
-            return;
+            AdsManager.instance.ShowInterstitial();
+            AdsManager.countToAd = AdsManager.instance.numberToAd;
         }
-        if (AdsManager.instance.RewardedIsReady())
-        {
-            resurrectButton.gameObject.SetActive(true);
-            //AdsManager.instance.ShowRewarded();
-        }
+
+        if (!resurrected && AdsManager.instance.RewardedIsReady())
+        resurrectButton.gameObject.SetActive(true);
     }
 
     private void FullDeath()
     {
         AdsManager.countToAd--;
-        print(AdsManager.countToAd + "COUNT TO AD");
+        print(AdsManager.countToAd + " COUNT TO AD");
         if (AdsManager.countToAd <= 0)
         {
             AdsManager.instance.ShowInterstitial();
@@ -126,15 +127,18 @@ public class GameManager : MonoBehaviour
 
         ObstacleSpawner.instance.Clean();
 
-        ResumeGame();
-
         resurrectButton.gameObject.SetActive(false);
 
         deathPanel.SetActive(false);
+
+        FingerControl.instance.StopLights();
+        
+        ResumeGame();
     }
 
     public void Restart()
     {
+        FullDeath();
         ResumeGame();
         deathPanel.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

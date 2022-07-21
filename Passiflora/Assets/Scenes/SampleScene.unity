@@ -1142,7 +1142,8 @@ MonoBehaviour:
   deathPanel: {fileID: 2107603137}
   obstacleSpawner: {fileID: 388110769}
   instructionsPanel: {fileID: 709756712}
-  resurrectButton: {fileID: 0}
+  resurrectButton: {fileID: 1867356223}
+  fc: {fileID: 0}
   maxSpeed: 650
   speed: 150
   score: 0

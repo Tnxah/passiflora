@@ -20,8 +20,11 @@ public class ObstacleSpawner : MonoBehaviour
         }
 
         obsts = new List<GameObject>();
-        width = GetComponent<BoxCollider2D>().size.x;
-        print(width + "/" + GetComponent<BoxCollider2D>().size.x);
+        //width = GetComponent<BoxCollider2D>().size.x;
+        Camera cam = Camera.main;
+        float height = 2f * cam.orthographicSize;
+        width = height * cam.aspect;
+        //print(width + "/" + GetComponent<BoxCollider2D>().size.x);
         StartCoroutine(Spawn());
     }
 

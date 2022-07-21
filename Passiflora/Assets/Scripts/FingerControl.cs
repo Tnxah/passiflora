@@ -74,6 +74,18 @@ public class FingerControl : MonoBehaviour
         }
     }
 
+    public void StopLights()
+    {
+        
+            first.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            first = null;
+       
+       
+            second.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            second = null;
+        
+    }
+
     public bool BouthTouched()
     {
         if (first && second)
