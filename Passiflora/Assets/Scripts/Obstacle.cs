@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Obstacle : MonoBehaviour
+public class Obstacle : MonoBehaviour, IActivatable
 {
+    public void Activate()
+    {
+        GetComponent<Animator>().Play("Wake");
+    }
+
     void OnBecameInvisible()
     {
         Destroy(gameObject);

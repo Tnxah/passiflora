@@ -9,6 +9,7 @@ TagManager:
   - AdsManager
   - RemoteConfig
   - Settings
+  - Obstacle
   layers:
   - Default
   - TransparentFX
