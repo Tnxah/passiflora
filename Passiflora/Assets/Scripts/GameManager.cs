@@ -110,6 +110,8 @@ public class GameManager : MonoBehaviour
 
     private void FullDeath()
     {
+        GooglePlayServicesManager.instance.SaveScore(score);
+
         AdsManager.countToAd--;
         print(AdsManager.countToAd + " COUNT TO AD");
         if (AdsManager.countToAd <= 0)
