@@ -22,4 +22,9 @@ public class Obstacle : MonoBehaviour, IActivatable
             GameManager.instance.OnDeath();
         }
     }
+
+    private void FixedUpdate()
+    {
+        //transform.RotateAround(Vector3.zero, Vector3.left, 1f);
+    }
 }

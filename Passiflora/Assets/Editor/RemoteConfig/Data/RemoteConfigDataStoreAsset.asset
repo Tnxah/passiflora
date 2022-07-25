@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
+  m_Name: RemoteConfigDataStoreAsset
+  m_EditorClassIdentifier: 
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4d81c4bb-b719-4063-a69c-332f6bc3af3e\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StartSpeed\",\r\n      \"type\": \"float\",\r\n     
+    \"value\": 85.0\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"d127e56b-657f-4cc4-9229-c13357f03fd4\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"MaxSpeed\",\r\n      \"type\": \"float\",\r\n      \"value\": 650.0\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"cd66c9f5-e07e-4fd1-9da5-a1a172b716be\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"AdsCounter\",\r\n      \"type\": \"int\",\r\n     
+    \"value\": 4\r\n    }\r\n  }\r\n]"
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4d81c4bb-b719-4063-a69c-332f6bc3af3e\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StartSpeed\",\r\n      \"type\": \"float\",\r\n     
+    \"value\": 85.0\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"d127e56b-657f-4cc4-9229-c13357f03fd4\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"MaxSpeed\",\r\n      \"type\": \"float\",\r\n      \"value\": 650.0\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"cd66c9f5-e07e-4fd1-9da5-a1a172b716be\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"AdsCounter\",\r\n      \"type\": \"int\",\r\n     
+    \"value\": 4\r\n    }\r\n  }\r\n]"
+  _environments: "[\r\n  {\r\n    \"projectId\": \"14ddb5b6-582c-4b0a-a4ec-e19b5f4fcce2\",\r\n   
+    \"name\": \"production\",\r\n    \"id\": \"7fe22b01-21e9-458f-bfb1-534f350c8a3b\",\r\n   
+    \"isDefault\": true,\r\n    \"createdAt\": \"2021-11-26T12:02:09Z\",\r\n    \"updatedAt\":
+    \"2021-11-26T12:02:09Z\"\r\n  }\r\n]"

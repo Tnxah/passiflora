@@ -10,8 +10,11 @@ public class GooglePlayServicesManager : MonoBehaviour
     public static GooglePlayServicesManager instance;
     [HideInInspector]
     public bool inited;
+
+    public GameObject leaderboardButton;
     
     private bool _isConnectedToPlayServices;
+    private bool _isConnectedToPlayServices2;
 
     private void Awake()
     {
@@ -28,9 +31,47 @@ public class GooglePlayServicesManager : MonoBehaviour
             return;
 
         PlayGamesPlatform.Activate();
-        PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
+        PlayGamesPlatform.DebugLogEnabled = true;
+        
 
         inited = true;
+    }
+
+    private void Start()
+    {
+        PlayGamesPlatform.Instance.Authenticate((success, message) => {
+
+            if (success)
+            {
+                _isConnectedToPlayServices = true;
+                print("Authentication success");
+                DebugCustom.instance.AddDebugNote("Authentication success");
+                leaderboardButton.SetActive(true);
+            }
+            else
+            {
+                _isConnectedToPlayServices = false;
+                print("Authentication failed. Wot po etomu: " + message);
+                DebugCustom.instance.AddDebugNote("Authentication failed. Wot po etomu: " + message);
+                leaderboardButton.SetActive(false);
+            }
+
+        });
+
+        //Social.localUser.Authenticate((bool success) => {
+        //    print("Authentication: " + success);
+        //    DebugCustom.instance.AddDebugNote("Authentication: " + success);
+        //    _isConnectedToPlayServices2 = success;
+
+        //    if (success)
+        //    {
+                
+        //    }
+        //    else
+        //    {
+                
+        //    }
+        //});
     }
 
     internal void ProcessAuthentication(SignInStatus status)
@@ -38,10 +79,14 @@ public class GooglePlayServicesManager : MonoBehaviour
         if (status == SignInStatus.Success)
         {
             _isConnectedToPlayServices = true;
+            print("Authentication success");
+            DebugCustom.instance.AddDebugNote("Authentication success");
         }
         else
         {
             _isConnectedToPlayServices = false;
+            print("Authentication failed. Wot po etomu: " + status.ToString());
+            DebugCustom.instance.AddDebugNote("Authentication failed. Wot po etomu: " + status.ToString());
         }
     }
 
@@ -55,8 +100,14 @@ public class GooglePlayServicesManager : MonoBehaviour
             if (!success)
             {
                 print("something went wrong");
+                DebugCustom.instance.AddDebugNote("Something went wrong in ReportScore");
             }
         });
 
+    }
+
+    public void ShowLeaderboard()
+    {
+        PlayGamesPlatform.Instance.ShowLeaderboardUI();
     }
 }

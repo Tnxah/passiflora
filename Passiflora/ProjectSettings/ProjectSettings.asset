@@ -160,9 +160,9 @@ PlayerSettings:
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
-  AndroidBundleVersionCode: 6
-  AndroidMinSdkVersion: 26
-  AndroidTargetSdkVersion: 0
+  AndroidBundleVersionCode: 10
+  AndroidMinSdkVersion: 30
+  AndroidTargetSdkVersion: 30
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   stripEngineCode: 1
@@ -248,7 +248,7 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: D:/Users/Tnxah/Documents/lightwins.keystore
+  AndroidKeystoreName: '{dedicated}: Documents/lightwins.keystore'
   AndroidKeyaliasName: passiflora
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0

@@ -25,6 +25,7 @@
 public static class GPGSIds
 {
         public const string leaderboard_leaderboard = "CgkIx7eO_rUbEAIQAA"; // <GPGSID>
+        public const string achievement_master_of_1000 = "CgkIx7eO_rUbEAIQAg"; // <GPGSID>
 
 }
 

@@ -38,11 +38,11 @@ public class FingerControl : MonoBehaviour
                 }
                 if (first)
                 {
-                    Vector2 direction = (touchPosition - first.transform.position);
+                    Vector2 direction = (touchPosition - first.transform.position).normalized;
                     first.GetComponent<Rigidbody2D>().velocity = direction * 1000f * Time.fixedDeltaTime;
                 }
             }
-            else if (touch.fingerId == 1)
+            if (touch.fingerId == 1)
             {
 
                 if (hit && second == null && hit.collider.CompareTag("Player"))
@@ -51,12 +51,12 @@ public class FingerControl : MonoBehaviour
                 }
                 if (second)
                 {
-                    Vector2 direction = (touchPosition - second.transform.position);
+                    Vector2 direction = (touchPosition - second.transform.position).normalized;
                     second.GetComponent<Rigidbody2D>().velocity = direction * 1000f * Time.fixedDeltaTime;
                 }
 
             }
-            if (touch.phase == TouchPhase.Ended)
+            else if (touch.phase == TouchPhase.Ended)
             {
                 if (touch.fingerId == 0 && first)
                 {
