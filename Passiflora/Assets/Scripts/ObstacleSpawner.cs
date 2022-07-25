@@ -6,12 +6,28 @@ using Random = UnityEngine.Random;
 public class ObstacleSpawner : MonoBehaviour
 {
     public static ObstacleSpawner instance;
+    public GameObject first, second, third;
+    public Dictionary<int, GameObject> obstPrefabs;
 
-    public GameObject obst;
+    public List<GameObject> obst;
 
     private List<GameObject> obsts;
 
+    private System.Random rnd;
     float width;
+
+    private void Awake()
+    {
+
+        obstPrefabs = new Dictionary<int, GameObject>();
+        obst = new List<GameObject>();
+
+        obstPrefabs.Add(0, first);
+        obstPrefabs.Add(100, second);
+        obstPrefabs.Add(300, third);
+
+    }
+
     void Start()
     {
         if (instance == null)
@@ -26,21 +42,16 @@ public class ObstacleSpawner : MonoBehaviour
         width = height * cam.aspect;
         //print(width + "/" + GetComponent<BoxCollider2D>().size.x);
         StartCoroutine(Spawn());
-    }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        rnd = new System.Random();
     }
 
     IEnumerator Spawn()
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.2f);
-            GameObject obs = Instantiate(obst, new Vector3(Random.Range(-width / 2, width / 2), transform.position.y, 0), Quaternion.identity);
+            yield return new WaitForSeconds(0.25f);
+            GameObject obs = Instantiate(obst[rnd.Next(obst.Count)], new Vector3(Random.Range(-width / 2, width / 2), transform.position.y, 0), Quaternion.identity);
             obs.GetComponent<Rigidbody2D>().AddForce(Vector2.down * GameManager.instance.speed);
 
             obsts.Add(obs);
@@ -60,6 +71,14 @@ public class ObstacleSpawner : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
+        }
+    }
+
+    public void FillPool(int score)
+    {
+        if (obstPrefabs.ContainsKey(score))
+        {
+            obst.Add(obstPrefabs[score]);
         }
     }
 }

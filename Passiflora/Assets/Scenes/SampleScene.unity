@@ -324,7 +324,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a1db77afe48f147bdf881551e32e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obst: {fileID: 2042654743875060880, guid: a3598d61d3a57fa41876eef9320abea9, type: 3}
+  first: {fileID: 3966479963204752089, guid: 6dde4f4c7768b5c428f25fbfcd6b435b, type: 3}
+  second: {fileID: 4464742724937544342, guid: f2b2c742f92bcad4794619904b9a3063, type: 3}
+  third: {fileID: 2042654743875060880, guid: a3598d61d3a57fa41876eef9320abea9, type: 3}
+  obst: []
 --- !u!61 &388110771
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -383,7 +386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &403427595
 RectTransform:
   m_ObjectHideFlags: 0
@@ -650,7 +653,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.75890374, y: 0.75890374}
+  m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
 --- !u!114 &457155274
 MonoBehaviour:
@@ -1577,7 +1580,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1143060619}
         m_TargetAssemblyTypeName: GooglePlayServicesManager, Assembly-CSharp
-        m_MethodName: showLeaderboard
+        m_MethodName: ShowLeaderboard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2479,7 +2482,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.75890374, y: 0.75890374}
+  m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
 --- !u!114 &2042512256
 MonoBehaviour:

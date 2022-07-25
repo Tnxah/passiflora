@@ -9,7 +9,6 @@ public class PlayerCollisionController : MonoBehaviour
         var activatable = collision.GetComponent<IActivatable>();
         if (collision.CompareTag("Obstacle"))
         {
-            print("OBST");
             activatable.Activate();
         }
     }

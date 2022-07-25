@@ -110,4 +110,9 @@ public class GooglePlayServicesManager : MonoBehaviour
     {
         PlayGamesPlatform.Instance.ShowLeaderboardUI();
     }
+
+    public void DistanceAchive(int score)
+    {
+        Social.ReportProgress(GPGSIds.achievement_master_of_1000, score/1000, null);
+    }
 }

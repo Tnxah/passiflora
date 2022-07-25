@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1 / (speed / 10));
+            ObstacleSpawner.instance.FillPool(score);
             score++;
         }
         
@@ -96,6 +97,10 @@ public class GameManager : MonoBehaviour
     public void OnDeath()
     {
         PauseGame();
+
+        GooglePlayServicesManager.instance.SaveScore(score);
+        GooglePlayServicesManager.instance.DistanceAchive(score);
+
         deathPanel.SetActive(true);
 
         if (AdsManager.countToAd <= 0)

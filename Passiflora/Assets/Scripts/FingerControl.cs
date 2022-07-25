@@ -39,7 +39,7 @@ public class FingerControl : MonoBehaviour
                 if (first)
                 {
                     Vector2 direction = (touchPosition - first.transform.position).normalized;
-                    first.GetComponent<Rigidbody2D>().velocity = direction * 1000f * Time.fixedDeltaTime;
+                    first.GetComponent<Rigidbody2D>().velocity = direction * 10000f * Time.fixedDeltaTime;
                 }
             }
             if (touch.fingerId == 1)
@@ -52,7 +52,7 @@ public class FingerControl : MonoBehaviour
                 if (second)
                 {
                     Vector2 direction = (touchPosition - second.transform.position).normalized;
-                    second.GetComponent<Rigidbody2D>().velocity = direction * 1000f * Time.fixedDeltaTime;
+                    second.GetComponent<Rigidbody2D>().velocity = direction * 10000f * Time.fixedDeltaTime;
                 }
 
             }
