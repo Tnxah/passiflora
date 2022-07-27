@@ -113,6 +113,17 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 
     }
 
+    public void OnDeathAds()
+    {
+        countToAd--;
+        if (countToAd <= 0)
+        {
+            ShowInterstitial();
+            countToAd = numberToAd;
+        }
+    }
+
+
     public void OnUnityAdsReady(string placementId)
     {
         print("ADS ARE READY");

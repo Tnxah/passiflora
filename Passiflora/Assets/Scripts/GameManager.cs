@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
 
     public bool resurrected;
 
+    public delegate void OnDeathCallback();
+    public OnDeathCallback onDeathCallback;
+
     private void Start()
     {
  
@@ -38,7 +41,7 @@ public class GameManager : MonoBehaviour
         fc = GetComponent<FingerControl>();
         Initialize();
         StartCoroutine(StartGame());
-
+        onDeathCallback += AdsManager.instance.OnDeathAds;
     }
 
     void Initialize()
@@ -98,34 +101,15 @@ public class GameManager : MonoBehaviour
     {
         PauseGame();
 
+        deathPanel.SetActive(true);
+
+        onDeathCallback?.Invoke();
+
         GooglePlayServicesManager.instance.SaveScore(score);
         GooglePlayServicesManager.instance.DistanceAchive(score);
 
-        deathPanel.SetActive(true);
-
-        if (AdsManager.countToAd <= 0)
-        {
-            AdsManager.instance.ShowInterstitial();
-            AdsManager.countToAd = AdsManager.instance.numberToAd;
-        }
-
         if (!resurrected && AdsManager.instance.RewardedIsReady())
         resurrectButton.gameObject.SetActive(true);
-    }
-
-    private void FullDeath()
-    {
-        GooglePlayServicesManager.instance.SaveScore(score);
-
-        AdsManager.countToAd--;
-        print(AdsManager.countToAd + " COUNT TO AD");
-        if (AdsManager.countToAd <= 0)
-        {
-            AdsManager.instance.ShowInterstitial();
-            AdsManager.countToAd = AdsManager.instance.numberToAd;
-        }
-
-        resurrected = false;
     }
 
     public void Resurrect()
@@ -145,9 +129,9 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        FullDeath();
         ResumeGame();
         deathPanel.SetActive(false);
+        resurrected = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void PauseGame()

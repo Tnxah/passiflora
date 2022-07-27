@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Obstacle : MonoBehaviour, IActivatable
+public class Obstacle : MonoBehaviour
 {
-    public void Activate()
+    private System.Random rnd;
+    private int rotation;
+
+    private void Start()
     {
-        GetComponent<Animator>().Play("Wake");
+        rnd = new System.Random();
+        rotation = rnd.Next(-50, 51);
     }
 
     void OnBecameInvisible()
@@ -25,6 +29,6 @@ public class Obstacle : MonoBehaviour, IActivatable
 
     private void FixedUpdate()
     {
-        //transform.RotateAround(Vector3.zero, Vector3.left, 1f);
+        transform.Rotate(0, 0, rotation * Time.fixedDeltaTime);
     }
 }

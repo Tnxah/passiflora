@@ -11,6 +11,9 @@ public class Settings : MonoBehaviour
     public float startSpeed;
 
     public int adsCounter;
+
+    public bool allowFingerOffset;
+
     private void Awake()
     {
 
@@ -43,5 +46,6 @@ public class Settings : MonoBehaviour
 
 
     }
+
 
 }

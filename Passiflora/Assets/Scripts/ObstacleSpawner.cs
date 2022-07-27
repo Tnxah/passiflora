@@ -23,8 +23,8 @@ public class ObstacleSpawner : MonoBehaviour
         obst = new List<GameObject>();
 
         obstPrefabs.Add(0, first);
-        obstPrefabs.Add(100, second);
-        obstPrefabs.Add(300, third);
+        obstPrefabs.Add(200, second);
+        obstPrefabs.Add(400, third);
 
     }
 

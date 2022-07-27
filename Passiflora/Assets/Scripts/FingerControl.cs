@@ -12,6 +12,8 @@ public class FingerControl : MonoBehaviour
     public GameObject first;
     public GameObject second;
 
+    public float fingerOffset = .8f;
+
     private void Start()
     {
         if (!instance)
@@ -29,9 +31,11 @@ public class FingerControl : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(touchPosition, Camera.main.transform.forward, 100);
             Debug.DrawRay(touchPosition, Camera.main.transform.forward * 50, Color.green, 5);
 
+            if (Settings.instance.allowFingerOffset)
+            touchPosition += new Vector3(0, fingerOffset, 0);
+
             if (touch.fingerId == 0)
             {
-
                 if (hit && first == null && hit.collider.CompareTag("Player"))
                 {
                     first = hit.collider.gameObject;
@@ -39,12 +43,11 @@ public class FingerControl : MonoBehaviour
                 if (first)
                 {
                     Vector2 direction = (touchPosition - first.transform.position).normalized;
-                    first.GetComponent<Rigidbody2D>().velocity = direction * 10000f * Time.fixedDeltaTime;
+                    first.GetComponent<Rigidbody2D>().velocity = direction * 15000f * Time.fixedDeltaTime;
                 }
             }
             if (touch.fingerId == 1)
             {
-
                 if (hit && second == null && hit.collider.CompareTag("Player"))
                 {
                     second = hit.collider.gameObject;
@@ -52,38 +55,38 @@ public class FingerControl : MonoBehaviour
                 if (second)
                 {
                     Vector2 direction = (touchPosition - second.transform.position).normalized;
-                    second.GetComponent<Rigidbody2D>().velocity = direction * 10000f * Time.fixedDeltaTime;
+                    second.GetComponent<Rigidbody2D>().velocity = direction * 15000f * Time.fixedDeltaTime;
                 }
-
             }
-            else if (touch.phase == TouchPhase.Ended)
+        }
+    }
+
+    private void Update()
+    {
+        foreach (Touch touch in Input.touches)
+
+            if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
+        {
+            if (touch.fingerId == 0 && first)
             {
-                if (touch.fingerId == 0 && first)
-                {
-                    first.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                    first = null;
-                }
-                else if (touch.fingerId == 1 && second)
-                {
-                    second.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                    second = null;
-                }
-
+                first.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                first = null;
             }
-
+            if (touch.fingerId == 1 && second)
+            {
+                second.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                second = null;
+            }
         }
     }
 
     public void StopLights()
     {
-        
             first.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             first = null;
        
-       
             second.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             second = null;
-        
     }
 
     public bool BouthTouched()
