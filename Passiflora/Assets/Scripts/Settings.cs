@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Settings : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Settings : MonoBehaviour
     public int adsCounter;
 
     public bool allowFingerOffset;
+
+    public Toggle fingersOffsetToggle;
 
     private void Awake()
     {
@@ -29,6 +32,7 @@ public class Settings : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
+        fingersOffsetToggle.isOn = PlayerPrefs.GetString("FingersOffset").Equals("True");
     }
 
     private void Start()
@@ -47,5 +51,10 @@ public class Settings : MonoBehaviour
 
     }
 
+    public void AllowOffset(bool state)
+    {
+        allowFingerOffset = state;
 
+        PlayerPrefs.SetString("FingersOffset", state.ToString());
+    }
 }
