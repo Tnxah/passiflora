@@ -7,7 +7,7 @@ public class PlayerCollisionController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var activatable = collision.GetComponent<IActivatable>();
-        if (collision.CompareTag("Obstacle"))
+        if (collision.CompareTag("Obstacle") && !(activatable is null))
         {
             activatable.Activate();
         }

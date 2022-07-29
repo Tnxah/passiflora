@@ -327,6 +327,7 @@ MonoBehaviour:
   first: {fileID: 3966479963204752089, guid: 6dde4f4c7768b5c428f25fbfcd6b435b, type: 3}
   second: {fileID: 4464742724937544342, guid: f2b2c742f92bcad4794619904b9a3063, type: 3}
   third: {fileID: 2042654743875060880, guid: a3598d61d3a57fa41876eef9320abea9, type: 3}
+  fourth: {fileID: 7426774044483270841, guid: 2382eefb8cebcd740a03a657e27a226e, type: 3}
   obst: []
 --- !u!61 &388110771
 BoxCollider2D:

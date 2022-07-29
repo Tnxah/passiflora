@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 public class ObstacleSpawner : MonoBehaviour
 {
     public static ObstacleSpawner instance;
-    public GameObject first, second, third;
+    public GameObject first, second, third, fourth;
     public Dictionary<int, GameObject> obstPrefabs;
 
     public List<GameObject> obst;
@@ -24,7 +24,8 @@ public class ObstacleSpawner : MonoBehaviour
 
         obstPrefabs.Add(0, first);
         obstPrefabs.Add(200, second);
-        obstPrefabs.Add(400, third);
+        obstPrefabs.Add(300, third);
+        obstPrefabs.Add(400, fourth);
 
     }
 

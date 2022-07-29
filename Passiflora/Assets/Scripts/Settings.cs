@@ -15,7 +15,6 @@ public class Settings : MonoBehaviour
 
     public bool allowFingerOffset;
 
-    public Toggle fingersOffsetToggle;
 
     private void Awake()
     {
@@ -31,8 +30,6 @@ public class Settings : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
-
-        fingersOffsetToggle.isOn = PlayerPrefs.GetString("FingersOffset").Equals("True");
     }
 
     private void Start()
@@ -49,12 +46,5 @@ public class Settings : MonoBehaviour
         adsCounter = RemoteConfig.instance.GetAdsCounter();
 
 
-    }
-
-    public void AllowOffset(bool state)
-    {
-        allowFingerOffset = state;
-
-        PlayerPrefs.SetString("FingersOffset", state.ToString());
     }
 }
