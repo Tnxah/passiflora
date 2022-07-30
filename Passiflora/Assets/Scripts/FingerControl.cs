@@ -82,11 +82,11 @@ public class FingerControl : MonoBehaviour
 
     public void StopLights()
     {
-            first.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            first = null;
-       
-            second.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            second = null;
+        var lights = GameObject.FindGameObjectsWithTag("Player");
+
+            lights[0].GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            lights[1].GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+ 
     }
 
     public bool BouthTouched()
