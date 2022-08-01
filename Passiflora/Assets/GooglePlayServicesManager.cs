@@ -12,17 +12,10 @@ public class GooglePlayServicesManager : MonoBehaviour
     public bool inited;
 
     public GameObject leaderboardButton;
-    
-    private bool _isConnectedToPlayServices;
-    private bool _isConnectedToPlayServices2;
 
     private void Awake()
     {
-        if (!instance)
-        {
-            instance = this;
-            Init();
-        }
+        Init();
     }
 
     public void Init()
@@ -30,14 +23,19 @@ public class GooglePlayServicesManager : MonoBehaviour
         if (inited)
             return;
 
+        instance = this;
+
         PlayGamesPlatform.Activate();
         PlayGamesPlatform.DebugLogEnabled = true;
-        
+
+        Authenticate();
 
         inited = true;
     }
 
-    private void Start()
+
+
+    private void Authenticate()
     {
         PlayGamesPlatform.Instance.Authenticate((success, message) => {
 
@@ -57,37 +55,6 @@ public class GooglePlayServicesManager : MonoBehaviour
             }
 
         });
-
-        //Social.localUser.Authenticate((bool success) => {
-        //    print("Authentication: " + success);
-        //    DebugCustom.instance.AddDebugNote("Authentication: " + success);
-        //    _isConnectedToPlayServices2 = success;
-
-        //    if (success)
-        //    {
-                
-        //    }
-        //    else
-        //    {
-                
-        //    }
-        //});
-    }
-
-    internal void ProcessAuthentication(SignInStatus status)
-    {
-        if (status == SignInStatus.Success)
-        {
-            _isConnectedToPlayServices = true;
-            print("Authentication success");
-            DebugCustom.instance.AddDebugNote("Authentication success");
-        }
-        else
-        {
-            _isConnectedToPlayServices = false;
-            print("Authentication failed. Wot po etomu: " + status.ToString());
-            DebugCustom.instance.AddDebugNote("Authentication failed. Wot po etomu: " + status.ToString());
-        }
     }
 
     public void SaveScore(int score)
@@ -103,7 +70,6 @@ public class GooglePlayServicesManager : MonoBehaviour
                 DebugCustom.instance.AddDebugNote("Something went wrong in ReportScore");
             }
         });
-
     }
 
     public void ShowLeaderboard()

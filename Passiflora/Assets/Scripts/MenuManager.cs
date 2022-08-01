@@ -5,11 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    public static bool firstBoot = true;
+
     public GameObject settingsPanel;
+
+    public GameObject remoteConfigPrefab;
+
+    private void Awake()
+    {
+        if (firstBoot)
+        {
+
+
+            firstBoot = false;
+        }
+    }
 
     public void OnFreePlayButton()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Game");
     }
 
     public void ShowHideSettings()

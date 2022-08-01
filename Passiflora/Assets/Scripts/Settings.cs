@@ -3,48 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Settings : MonoBehaviour
+public class Settings
 {
-    public static Settings instance;
+    public static float maxSpeed;
+    public static float startSpeed;
+    public static float startVolume = 80;
 
-    public float maxSpeed;
+    public static int adsCounter;
 
-    public float startSpeed;
+    public static bool isAllowedFingerOffset;
+    public static bool isRemoteConfigLoaded;
+    public static bool isPlayerPrefsLoaded;
+    public static bool isConnectedToPlayServices;
+    public static bool inited;
 
-    public int adsCounter;
+    public delegate void OnInit();
+    public static OnInit onInitCallback;
 
-    public bool allowFingerOffset;
+    public delegate void OnPlayerPrefs();
+    public static OnPlayerPrefs onPlayerPrefsCallback;
+
+    public delegate void OnRemoteConfig();
+    public static OnRemoteConfig onRemoteConfigCallback;
 
 
-    private void Awake()
+    public static void LoadRemoteConfig()
     {
+        if (!RemoteConfig.instance)
+            return;
 
-        if (GameObject.FindGameObjectsWithTag("Settings").Length > 1)
-        {
-            Destroy(gameObject);
-        }
-
-        if (instance == null)
-        {
-            instance = this;
-        }
-
-        DontDestroyOnLoad(gameObject);
-    }
-
-    private void Start()
-    {
-        StartCoroutine(CheckForUpdateSettings());
-    }
-
-    IEnumerator CheckForUpdateSettings()
-    {
-        yield return new WaitUntil(()=> RemoteConfig.instance.finished);
-        print("settings stard getting settings data");
         startSpeed = RemoteConfig.instance.GetStartSpeed();
         maxSpeed = RemoteConfig.instance.GetMaxSpeed();
         adsCounter = RemoteConfig.instance.GetAdsCounter();
 
+        onRemoteConfigCallback?.Invoke();
+        isRemoteConfigLoaded = true;
+    }
 
+    public static void LoadPlayerPrefs()
+    {
+        if (PlayerPrefs.HasKey("MusicVol"))
+            startVolume = PlayerPrefs.GetFloat("MusicVolume");
+        if (PlayerPrefs.HasKey("FingersOffset"))
+            isAllowedFingerOffset = PlayerPrefs.GetString("FingersOffset").Equals("True");
+
+        onPlayerPrefsCallback?.Invoke();
+        isPlayerPrefsLoaded = true;
     }
 }
