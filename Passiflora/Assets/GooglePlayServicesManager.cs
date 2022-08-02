@@ -11,8 +11,6 @@ public class GooglePlayServicesManager : MonoBehaviour
     [HideInInspector]
     public bool inited;
 
-    public GameObject leaderboardButton;
-
     private void Awake()
     {
         Init();
@@ -41,25 +39,20 @@ public class GooglePlayServicesManager : MonoBehaviour
 
             if (success)
             {
-                _isConnectedToPlayServices = true;
+                Settings.isConnectedToPlayServices = true;
                 print("Authentication success");
-                DebugCustom.instance.AddDebugNote("Authentication success");
-                leaderboardButton.SetActive(true);
             }
             else
             {
-                _isConnectedToPlayServices = false;
+                Settings.isConnectedToPlayServices = false;
                 print("Authentication failed. Wot po etomu: " + message);
-                DebugCustom.instance.AddDebugNote("Authentication failed. Wot po etomu: " + message);
-                leaderboardButton.SetActive(false);
             }
-
         });
     }
 
     public void SaveScore(int score)
     {
-        if (!_isConnectedToPlayServices)
+        if (!Settings.isConnectedToPlayServices)
             return;
 
         Social.ReportScore(score, GPGSIds.leaderboard_leaderboard, (success) =>
@@ -67,7 +60,6 @@ public class GooglePlayServicesManager : MonoBehaviour
             if (!success)
             {
                 print("something went wrong");
-                DebugCustom.instance.AddDebugNote("Something went wrong in ReportScore");
             }
         });
     }

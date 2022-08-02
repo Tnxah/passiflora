@@ -23,7 +23,7 @@ public class Obstacle : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            GameManager.instance.OnDeath();
+            PlaygroundManager.instance.OnDeath();
         }
     }
 

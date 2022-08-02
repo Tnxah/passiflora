@@ -17,6 +17,8 @@ public class Settings
     public static bool isConnectedToPlayServices;
     public static bool inited;
 
+    public static Color backgroundColor;
+
     public delegate void OnInit();
     public static OnInit onInitCallback;
 

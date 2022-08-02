@@ -31,7 +31,7 @@ public class FingerControl : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(touchPosition, Camera.main.transform.forward, 100);
             Debug.DrawRay(touchPosition, Camera.main.transform.forward * 50, Color.green, 5);
 
-            if (Settings.instance.allowFingerOffset)
+            if (Settings.isAllowedFingerOffset)
             touchPosition += new Vector3(0, fingerOffset, 0);
 
             if (touch.fingerId == 0)

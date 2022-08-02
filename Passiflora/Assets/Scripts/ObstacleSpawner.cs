@@ -53,7 +53,7 @@ public class ObstacleSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(0.25f);
             GameObject obs = Instantiate(obst[rnd.Next(obst.Count)], new Vector3(Random.Range(-width / 2, width / 2), transform.position.y, 0), Quaternion.identity);
-            obs.GetComponent<Rigidbody2D>().AddForce(Vector2.down * GameManager.instance.speed);
+            obs.GetComponent<Rigidbody2D>().AddForce(Vector2.down * PlaygroundManager.instance.speed);
 
             obsts.Add(obs);
         }

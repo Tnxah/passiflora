@@ -17,7 +17,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     string bannerId = "Banner_iOS";
 #endif 
 
-    public TextMeshProUGUI debug;
+    //public TextMeshProUGUI debug;
     //[HideInInspector]
     public int numberToAd;
     //[SerializeField]
@@ -45,7 +45,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         LoadInterstitial();
         LoadRewarded();
         ShowBanner();
-        numberToAd = Settings.instance.adsCounter;
+        numberToAd = Settings.adsCounter;
     }
 
     private void LoadInterstitial()
@@ -75,7 +75,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 
     public void ShowBanner()
     {
-        debug.text += "show banner";
+       // debug.text += "show banner";
 
         
         Advertisement.Banner.Show(bannerID);
@@ -89,7 +89,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 
     public void LoadBanner()
     {
-        debug.text += "Banner start loading";
+        //debug.text += "Banner start loading";
         print("Banner start loading");
         Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
         Advertisement.Banner.Load(bannerID);
@@ -99,7 +99,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     void OnBannerLoaded()
     {
         Debug.Log("Banner loaded");
-        debug.text += "Banner loaded";
+        //debug.text += "Banner loaded";
         ShowBanner();
 
     }
@@ -108,7 +108,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     void OnBannerError(string message)
     {
         Debug.Log($"Banner Error: {message}");
-        debug.text += $"Banner Error: {message}";
+        //debug.text += $"Banner Error: {message}";
 
 
     }
@@ -133,7 +133,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     public void OnUnityAdsDidError(string message)
     {
         print("ERROR " + message);
-        debug.text += ("ERROR " + message);
+        //debug.text += ("ERROR " + message);
 
     }
 
@@ -158,15 +158,15 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     public void OnInitializationComplete()
     {
         Debug.Log("Unity Ads initialization complete.");
-        debug.text += "Kek";
-        debug.text += "Unity Ads initialization complete.";
+        //debug.text += "Kek";
+        //debug.text += "Unity Ads initialization complete.";
         Debug.Log("======================================");
     }
 
     public void OnInitializationFailed(UnityAdsInitializationError error, string message)
     {
         Debug.Log($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
-        debug.text += $"Unity Ads Initialization Failed: {error.ToString()} - {message}";
+        //debug.text += $"Unity Ads Initialization Failed: {error.ToString()} - {message}";
     }
 
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
@@ -189,7 +189,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         if (placementId.Equals(rewardedID) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
         {
             Debug.Log("Unity Ads Rewarded Ad Completed");
-            GameManager.instance.Resurrect();
+            PlaygroundManager.instance.Resurrect();
 
             rewardedReady = false;
             // Load another ad:
