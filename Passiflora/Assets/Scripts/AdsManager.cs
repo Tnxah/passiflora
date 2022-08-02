@@ -29,9 +29,6 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 
     private void Awake()
     {
-#if UNITY_EDITOR
-        //return;
-#endif
         print("start Initialising");
         Advertisement.Initialize(gameID, false, this);
     }
@@ -41,6 +38,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         {
             instance = this;
         }
+        PlaygroundManager.instance.onDeathCallback += OnDeathAds;
         LoadBanner();
         LoadInterstitial();
         LoadRewarded();

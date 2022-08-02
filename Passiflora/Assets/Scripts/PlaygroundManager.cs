@@ -21,19 +21,19 @@ public class PlaygroundManager : MonoBehaviour
     public delegate void OnDeathCallback();
     public OnDeathCallback onDeathCallback;
 
-    private void Start()
+    private void Awake()
     {
- 
         if (!instance)
         {
-
             instance = this;
-
         }
+    }
+
+    private void Start()
+    {
         fc = GetComponent<FingerControl>();
         Initialize();
         StartCoroutine(StartGame());
-        onDeathCallback += AdsManager.instance.OnDeathAds;
     }
 
     void Initialize()
@@ -48,6 +48,8 @@ public class PlaygroundManager : MonoBehaviour
 #else
         yield return new WaitUntil(()=> FingerControl.instance.BouthTouched());
 #endif
+        PlaygroundUIManager.instance.OnPlay();
+
         obstacleSpawner.SetActive(true);
         StartCoroutine(ScoreIncreaser());
         StartCoroutine(SpeedIncreaser());

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6191830715429800086}
   - component: {fileID: 6191830715429800085}
   - component: {fileID: 6191830715429800084}
-  - component: {fileID: 6191830715429800083}
   - component: {fileID: 2611720610968964621}
+  - component: {fileID: 4613844138948999182}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -61,19 +61,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30e7fbe826c3b9446b93b8059262f186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6191830715429800083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6191830715429800082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3e48cb0fc2e9f243ae16048244335ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  backgroundColor: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
 --- !u!114 &2611720610968964621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,3 +76,16 @@ MonoBehaviour:
   first: {fileID: 0}
   second: {fileID: 0}
   fingerOffset: 0.8
+--- !u!114 &4613844138948999182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6191830715429800082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53e94eca0bbde504494e9012c1c9cb92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0}

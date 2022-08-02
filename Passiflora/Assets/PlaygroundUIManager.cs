@@ -18,6 +18,11 @@ public class PlaygroundUIManager : MonoBehaviour
 
     private void Awake()
     {
+        if (!instance)
+        {
+            instance = this;
+        }
+
         Camera.main.backgroundColor = Settings.backgroundColor;
     }
 
