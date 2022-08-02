@@ -24,6 +24,7 @@ public class PlaygroundUIManager : MonoBehaviour
         }
 
         Camera.main.backgroundColor = Settings.backgroundColor;
+        deathPanel.GetComponent<Image>().color = Settings.panelsColor;
     }
 
     public void OnRestart()

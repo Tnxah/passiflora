@@ -53,9 +53,20 @@ public class ObstacleSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(0.25f);
             GameObject obs = Instantiate(obst[rnd.Next(obst.Count)], new Vector3(Random.Range(-width / 2, width / 2), transform.position.y, 0), Quaternion.identity);
+            //Colorise(obs);
             obs.GetComponent<Rigidbody2D>().AddForce(Vector2.down * PlaygroundManager.instance.speed);
 
             obsts.Add(obs);
+        }
+    }
+
+    private void Colorise(GameObject obstacle)
+    {
+        var color = Settings.obstacleColor[rnd.Next(Settings.obstacleColor.Count)];
+        var srs = obstacle.GetComponentsInChildren<SpriteRenderer>();
+        foreach (var sprite in srs)
+        {
+            sprite.color = color;
         }
     }
 

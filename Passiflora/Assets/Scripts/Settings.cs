@@ -18,6 +18,9 @@ public class Settings
     public static bool inited;
 
     public static Color backgroundColor;
+    public static Color playerColor;
+    public static List<Color> obstacleColor;
+    public static Color panelsColor;
 
     public delegate void OnInit();
     public static OnInit onInitCallback;
@@ -31,12 +34,11 @@ public class Settings
 
     public static void LoadRemoteConfig()
     {
-        if (!RemoteConfig.instance)
-            return;
-
         startSpeed = RemoteConfig.instance.GetStartSpeed();
         maxSpeed = RemoteConfig.instance.GetMaxSpeed();
         adsCounter = RemoteConfig.instance.GetAdsCounter();
+
+        Debug.Log("speed " + startSpeed + "mspeed " + maxSpeed + "acounter " + adsCounter);
 
         onRemoteConfigCallback?.Invoke();
         isRemoteConfigLoaded = true;

@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static bool firstBoot = true;
 
-    public Color backgroundColor;
+    public RemoteConfig remoteConfig;
 
     private void Awake()
     {
@@ -21,10 +21,15 @@ public class GameManager : MonoBehaviour
 
     private void FirstBoot()
     {
-        #if UNITY_EDITOR
-            Settings.backgroundColor = this.backgroundColor;
-        #endif
+        remoteConfig.enabled = true;
 
         Settings.LoadPlayerPrefs();
+        StartCoroutine(LoadRemoteConfig());
+    }
+
+    private IEnumerator LoadRemoteConfig()
+    {
+        yield return new WaitUntil(() => RemoteConfig.instance.finished);
+        Settings.LoadRemoteConfig();
     }
 }

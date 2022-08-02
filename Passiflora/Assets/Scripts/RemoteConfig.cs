@@ -64,8 +64,6 @@ public class RemoteConfig : MonoBehaviour
         }
 
         finished = true;
-
-        Settings.LoadRemoteConfig();
     }
     
     public float GetStartSpeed()

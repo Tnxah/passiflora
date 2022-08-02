@@ -13,13 +13,9 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject settingsPanel;
 
-    private void Awake()
-    {
-        Camera.main.backgroundColor = Settings.backgroundColor;
-    }
-
     private void Start()
     {
+        Camera.main.backgroundColor = Settings.backgroundColor;
         fingersOffsetToggle.isOn = Settings.isAllowedFingerOffset;
 
         if(PlayerPrefs.HasKey("MusicVol"))
