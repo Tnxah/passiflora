@@ -7,16 +7,31 @@ public class GameManager : MonoBehaviour
 {
     public static bool firstBoot = true;
 
+    public static GameManager instance;
+
     public RemoteConfig remoteConfig;
 
-    private void Awake()
+    public static GameScene gameScene = GameScene.MainMenu;
+    public static GameState gameState = GameState.NotInGame;
+
+    public AdsManager adsManager;
+    public FingerControl fingerControl;
+    public PlaygroundManager playgroundManager;
+    private void Start()
     {
+        if (!instance)
+        {
+            instance = this;
+        }
+
         if (firstBoot)
         {
             FirstBoot();
 
             firstBoot = false;
         }
+
+        OnStateChange();
     }
 
     private void FirstBoot()
@@ -31,5 +46,25 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitUntil(() => RemoteConfig.instance.finished);
         Settings.LoadRemoteConfig();
+    }
+
+    public void ChangeState(GameScene newScene, GameState newState)
+    {
+        gameScene = newScene;
+        gameState = newState;
+
+        print($"OnChangeState {gameScene} " +
+            $"{gameState}");
+    }
+
+    private void OnStateChange()
+    {
+        print(gameScene);
+        if (gameScene.Equals(GameScene.Game))
+        {
+            adsManager.enabled = true;
+            fingerControl.enabled = true;
+            playgroundManager.enabled = true;
+        }
     }
 }

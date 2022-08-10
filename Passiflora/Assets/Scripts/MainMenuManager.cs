@@ -13,15 +13,16 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject settingsPanel;
 
-    private void Start()
+    private void Awake()
     {
-        Camera.main.backgroundColor = Settings.backgroundColor;
-        fingersOffsetToggle.isOn = Settings.isAllowedFingerOffset;
-
-        if(PlayerPrefs.HasKey("MusicVol"))
-            volumeSlider.value = PlayerPrefs.GetFloat("MusicVol");
+        Settings.onPlayerPrefsCallback += Init;
     }
 
+    private void Start()
+    {
+        settingsPanel.GetComponent<Image>().color = Settings.backgroundColor;
+        Camera.main.backgroundColor = Settings.backgroundColor;
+    }
     public void AllowOffset(bool state)
     {
         Settings.isAllowedFingerOffset = state;
@@ -32,10 +33,19 @@ public class MainMenuManager : MonoBehaviour
     public void OnFreePlayButton()
     {
         SceneManager.LoadScene("Game");
+        GameManager.instance.ChangeState(GameScene.Game, GameState.Pause);
     }
 
     public void ShowHideSettings()
     {
         settingsPanel.SetActive(!settingsPanel.activeSelf);
+    }
+
+    public void Init()
+    {
+        Debug.Log("PrefsUILoad");
+
+        fingersOffsetToggle.isOn = Settings.isAllowedFingerOffset;
+        volumeSlider.value = Settings.startVolume;
     }
 }

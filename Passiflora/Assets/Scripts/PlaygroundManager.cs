@@ -9,7 +9,7 @@ public class PlaygroundManager : MonoBehaviour
 {
     public static PlaygroundManager instance;
 
-    public GameObject obstacleSpawner;
+    public ObstacleSpawner obstacleSpawner;
 
     public FingerControl fc;
 
@@ -27,10 +27,13 @@ public class PlaygroundManager : MonoBehaviour
         {
             instance = this;
         }
+
+        
     }
 
     private void Start()
     {
+        obstacleSpawner = GameObject.FindGameObjectWithTag("ObstacleSpawner").GetComponent<ObstacleSpawner>();
         fc = GetComponent<FingerControl>();
         Initialize();
         StartCoroutine(StartGame());
@@ -43,14 +46,18 @@ public class PlaygroundManager : MonoBehaviour
 
     IEnumerator StartGame()
     {
+        Time.timeScale = 1;
+
 #if UNITY_EDITOR
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Mouse0));
 #else
         yield return new WaitUntil(()=> FingerControl.instance.BouthTouched());
 #endif
-        PlaygroundUIManager.instance.OnPlay();
+        GameManager.instance.ChangeState(GameManager.gameScene, GameState.Play);
 
-        obstacleSpawner.SetActive(true);
+        PlaygroundUIManager.instance.OnPlay();
+        print("Obst launch");
+        obstacleSpawner.Launch();
         StartCoroutine(ScoreIncreaser());
         StartCoroutine(SpeedIncreaser());
     }
@@ -92,6 +99,7 @@ public class PlaygroundManager : MonoBehaviour
 
     public void Resurrect()
     {
+        ResumeGame();
         resurrected = true;
 
         ObstacleSpawner.instance.Clean();
@@ -100,7 +108,7 @@ public class PlaygroundManager : MonoBehaviour
 
         PlaygroundUIManager.instance.OnResurrect();
 
-        ResumeGame();
+        
     }
 
     public void Restart()
@@ -112,11 +120,14 @@ public class PlaygroundManager : MonoBehaviour
     }
     public void PauseGame()
     {
+        print("Time scale 0");
         Time.timeScale = 0;
+        GameManager.instance.ChangeState(GameManager.gameScene, GameState.Pause);
     }
 
     public void ResumeGame()
     {
+        print("Time scale 1");
         Time.timeScale = 1;
     }
 }

@@ -47,9 +47,10 @@ public class Settings
     public static void LoadPlayerPrefs()
     {
         if (PlayerPrefs.HasKey("MusicVol"))
-            startVolume = PlayerPrefs.GetFloat("MusicVolume");
+            startVolume = PlayerPrefs.GetFloat("MusicVol");
         if (PlayerPrefs.HasKey("FingersOffset"))
             isAllowedFingerOffset = PlayerPrefs.GetString("FingersOffset").Equals("True");
+        Debug.Log("PrefsSettingsLoad" + startVolume + " " + isAllowedFingerOffset);
 
         onPlayerPrefsCallback?.Invoke();
         isPlayerPrefsLoaded = true;

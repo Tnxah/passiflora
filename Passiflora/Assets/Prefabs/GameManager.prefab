@@ -9,11 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6191830715429800086}
-  - component: {fileID: 3641393775790767408}
-  - component: {fileID: 6191830715429800085}
+  - component: {fileID: 7347028985555551759}
   - component: {fileID: 6191830715429800084}
+  - component: {fileID: 1165006919473552358}
+  - component: {fileID: 6811770479253796775}
+  - component: {fileID: 6191830715429800085}
   - component: {fileID: 2611720610968964621}
   - component: {fileID: 8964786213200565080}
+  - component: {fileID: 5355653019395387246}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -36,7 +39,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3641393775790767408
+--- !u!114 &7347028985555551759
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,10 +48,51 @@ MonoBehaviour:
   m_GameObject: {fileID: 6191830715429800082}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3e48cb0fc2e9f243ae16048244335ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 53e94eca0bbde504494e9012c1c9cb92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   remoteConfig: {fileID: 6191830715429800085}
+  adsManager: {fileID: 6811770479253796775}
+  fingerControl: {fileID: 2611720610968964621}
+  playgroundManager: {fileID: 5355653019395387246}
+--- !u!114 &6191830715429800084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6191830715429800082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30e7fbe826c3b9446b93b8059262f186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1165006919473552358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6191830715429800082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b43b9afef99ce07408642446d7a7cc7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inited: 0
+--- !u!114 &6811770479253796775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6191830715429800082}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd33f897ed980b43af48adae092a74c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberToAd: 0
 --- !u!114 &6191830715429800085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,18 +107,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newData: 0
   finished: 0
---- !u!114 &6191830715429800084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6191830715429800082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30e7fbe826c3b9446b93b8059262f186, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2611720610968964621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,7 +114,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6191830715429800082}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b52c150d11311140bf4669eb7042338, type: 3}
   m_Name: 
@@ -110,3 +142,20 @@ MonoBehaviour:
   - {r: 0.9490196, g: 0.6666667, b: 0.5019608, a: 1}
   - {r: 0.9490196, g: 0.5019608, b: 0.4, a: 1}
   - {r: 0, g: 0, b: 0, a: 1}
+--- !u!114 &5355653019395387246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6191830715429800082}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 098ec1e66017b044da8288b76029b3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleSpawner: {fileID: 0}
+  fc: {fileID: 2611720610968964621}
+  speed: 0
+  score: 0
+  resurrected: 0

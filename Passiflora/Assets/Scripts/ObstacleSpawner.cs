@@ -6,12 +6,15 @@ using Random = UnityEngine.Random;
 public class ObstacleSpawner : MonoBehaviour
 {
     public static ObstacleSpawner instance;
-    public GameObject first, second, third, fourth;
+    public List<GameObject> obstPrefab;
+    public List<int> spawnPoint;
+    public List<int> spawnChance;
+    
     public Dictionary<int, GameObject> obstPrefabs;
 
-    public List<GameObject> obst;
+    private List<GameObject> obstaclesPool;
 
-    private List<GameObject> obsts;
+    private List<GameObject> spawnedObstacles;
 
     private System.Random rnd;
     float width;
@@ -20,12 +23,12 @@ public class ObstacleSpawner : MonoBehaviour
     {
 
         obstPrefabs = new Dictionary<int, GameObject>();
-        obst = new List<GameObject>();
+        obstaclesPool = new List<GameObject>();
 
-        obstPrefabs.Add(0, first);
-        obstPrefabs.Add(200, second);
-        obstPrefabs.Add(300, third);
-        obstPrefabs.Add(400, fourth);
+        obstPrefabs.Add(spawnPoint[0], obstPrefab[0]);
+        obstPrefabs.Add(spawnPoint[1], obstPrefab[1]);
+        obstPrefabs.Add(spawnPoint[2], obstPrefab[2]);
+        obstPrefabs.Add(spawnPoint[3], obstPrefab[3]);
 
     }
 
@@ -36,27 +39,36 @@ public class ObstacleSpawner : MonoBehaviour
             instance = this;
         }
 
-        obsts = new List<GameObject>();
+        spawnedObstacles = new List<GameObject>();
         //width = GetComponent<BoxCollider2D>().size.x;
         Camera cam = Camera.main;
         float height = 2f * cam.orthographicSize;
         width = height * cam.aspect;
         //print(width + "/" + GetComponent<BoxCollider2D>().size.x);
-        StartCoroutine(Spawn());
+        
 
         rnd = new System.Random();
+    }
+
+
+    public void Launch()
+    {
+        StartCoroutine(Spawn());
     }
 
     IEnumerator Spawn()
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.25f);
-            GameObject obs = Instantiate(obst[rnd.Next(obst.Count)], new Vector3(Random.Range(-width / 2, width / 2), transform.position.y, 0), Quaternion.identity);
-            //Colorise(obs);
-            obs.GetComponent<Rigidbody2D>().AddForce(Vector2.down * PlaygroundManager.instance.speed);
+            //yield return new WaitForSeconds(0.25f);
 
-            obsts.Add(obs);
+            //var obstacleToSpawn = TakeObstacle();
+
+            //var obs = Instantiate(obstacleToSpawn, new Vector3(Random.Range(-width / 2, width / 2), transform.position.y, 0), Quaternion.identity);
+
+            //obs.GetComponent<Rigidbody2D>().AddForce(Vector2.down * PlaygroundManager.instance.speed);
+
+            //spawnedObstacles.Add(obs);
         }
     }
 
@@ -72,7 +84,7 @@ public class ObstacleSpawner : MonoBehaviour
 
     public void Clean()
     {
-        foreach (var obs in obsts)
+        foreach (var obs in spawnedObstacles)
         {
             Destroy(obs);
         }
@@ -90,7 +102,23 @@ public class ObstacleSpawner : MonoBehaviour
     {
         if (obstPrefabs.ContainsKey(score))
         {
-            obst.Add(obstPrefabs[score]);
+            obstaclesPool.Add(obstPrefabs[score]);
         }
     }
+
+    public GameObject TakeObstacle()
+    {
+        for (int i = 1; i < obstaclesPool.Count; i++)
+        {
+            var rand = rnd.Next(100);
+            print(rand + " " + i);
+            if (rand <= spawnChance[i])
+            {
+                return obstaclesPool[i];
+            }
+        }
+
+        return obstaclesPool[0];
+    }
+
 }

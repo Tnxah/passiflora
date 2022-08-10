@@ -14,6 +14,10 @@ public class ApplicationSystem : MonoBehaviour
         {"Game","MainMenu"},
         {"MainMenu","Exit"} 
     };
+    Dictionary<string, GameScene> gameSceneMap = new Dictionary<string, GameScene> { 
+        {"MainMenu", GameScene.MainMenu},
+        {"Exit", GameScene.MainMenu} 
+    };
 
 
     void Awake()
@@ -30,6 +34,7 @@ public class ApplicationSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             LoadScene(map[SceneManager.GetActiveScene().name]);
+            GameManager.instance.ChangeState(gameSceneMap[map[SceneManager.GetActiveScene().name]], GameManager.gameState);
         }
     }
 

@@ -12,6 +12,7 @@ public class PlaygroundUIManager : MonoBehaviour
     public GameObject deathPanel;
 
     public Button resurrectButton;
+    public Button leaderboard;
 
     public TextMeshProUGUI[] scoreText;
 
@@ -25,6 +26,8 @@ public class PlaygroundUIManager : MonoBehaviour
 
         Camera.main.backgroundColor = Settings.backgroundColor;
         deathPanel.GetComponent<Image>().color = Settings.panelsColor;
+
+        leaderboard.gameObject.SetActive(Settings.isConnectedToPlayServices);
     }
 
     public void OnRestart()

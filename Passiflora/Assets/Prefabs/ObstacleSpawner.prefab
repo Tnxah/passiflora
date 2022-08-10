@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7649246297754030988}
   m_Layer: 0
   m_Name: ObstacleSpawner
-  m_TagString: Untagged
+  m_TagString: ObstacleSpawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,8 +71,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a1db77afe48f147bdf881551e32e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  first: {fileID: 3966479963204752089, guid: 6dde4f4c7768b5c428f25fbfcd6b435b, type: 3}
-  second: {fileID: 4464742724937544342, guid: f2b2c742f92bcad4794619904b9a3063, type: 3}
-  third: {fileID: 2042654743875060880, guid: a3598d61d3a57fa41876eef9320abea9, type: 3}
-  fourth: {fileID: 7426774044483270841, guid: 2382eefb8cebcd740a03a657e27a226e, type: 3}
-  obst: []
+  obstPrefab:
+  - {fileID: 3966479963204752089, guid: 6dde4f4c7768b5c428f25fbfcd6b435b, type: 3}
+  - {fileID: 4464742724937544342, guid: f2b2c742f92bcad4794619904b9a3063, type: 3}
+  - {fileID: 2042654743875060880, guid: a3598d61d3a57fa41876eef9320abea9, type: 3}
+  - {fileID: 7426774044483270841, guid: 2382eefb8cebcd740a03a657e27a226e, type: 3}
+  spawnPoint: 0000000064000000c800000084030000
+  spawnChance: 5000000028000000280000000a000000

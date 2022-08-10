@@ -18,7 +18,7 @@ public class GooglePlayServicesManager : MonoBehaviour
 
     public void Init()
     {
-        if (inited)
+        if (instance)
             return;
 
         instance = this;

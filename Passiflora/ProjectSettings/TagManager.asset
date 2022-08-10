@@ -10,6 +10,7 @@ TagManager:
   - RemoteConfig
   - Settings
   - Obstacle
+  - ObstacleSpawner
   layers:
   - Default
   - TransparentFX
