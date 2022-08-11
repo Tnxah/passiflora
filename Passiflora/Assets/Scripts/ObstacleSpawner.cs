@@ -12,7 +12,7 @@ public class ObstacleSpawner : MonoBehaviour
     
     public Dictionary<int, GameObject> obstPrefabs;
 
-    private List<GameObject> obstaclesPool;
+    public List<GameObject> obstaclesPool;
 
     private List<GameObject> spawnedObstacles;
 
@@ -60,15 +60,15 @@ public class ObstacleSpawner : MonoBehaviour
     {
         while (true)
         {
-            //yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.25f);
 
-            //var obstacleToSpawn = TakeObstacle();
+            var obstacleToSpawn = TakeObstacle();
 
-            //var obs = Instantiate(obstacleToSpawn, new Vector3(Random.Range(-width / 2, width / 2), transform.position.y, 0), Quaternion.identity);
+            var obs = Instantiate(obstacleToSpawn, new Vector3(Random.Range(-width / 2, width / 2), transform.position.y, 0), Quaternion.identity);
 
-            //obs.GetComponent<Rigidbody2D>().AddForce(Vector2.down * PlaygroundManager.instance.speed);
+            obs.GetComponent<Rigidbody2D>().AddForce(Vector2.down * PlaygroundManager.instance.speed);
 
-            //spawnedObstacles.Add(obs);
+            spawnedObstacles.Add(obs);
         }
     }
 
@@ -111,9 +111,9 @@ public class ObstacleSpawner : MonoBehaviour
         for (int i = 1; i < obstaclesPool.Count; i++)
         {
             var rand = rnd.Next(100);
-            print(rand + " " + i);
             if (rand <= spawnChance[i])
             {
+                print(rand + " " + i);
                 return obstaclesPool[i];
             }
         }

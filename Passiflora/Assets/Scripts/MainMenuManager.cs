@@ -13,6 +13,10 @@ public class MainMenuManager : MonoBehaviour
 
     [SerializeField]
     private GameObject settingsPanel;
+
+    [SerializeField]
+    private GameObject loadingAnimation;
+
     private float startLoadingTime;
 
     private void Awake()
@@ -35,6 +39,7 @@ public class MainMenuManager : MonoBehaviour
     public void OnFreePlayButton()
     {
         StartCoroutine(LoadPlayScene("Game"));
+        loadingAnimation.SetActive(true);
     }
 
     public void ShowHideSettings()
@@ -53,7 +58,7 @@ public class MainMenuManager : MonoBehaviour
     public IEnumerator LoadPlayScene(string sceneName)
     {
         startLoadingTime = Time.time;
-        yield return new WaitUntil(() => Settings.IsInited() || Time.time - startLoadingTime >= 5);
+        yield return new WaitUntil(() => Settings.IsInited() || Time.time - startLoadingTime >= 6);
 
         SceneManager.LoadScene(sceneName);
         GameManager.instance.ChangeState(GameScene.Game, GameState.Pause);
