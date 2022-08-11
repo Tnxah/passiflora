@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class Settings
 {
-    public static float maxSpeed;
-    public static float startSpeed;
+    public static float maxSpeed = 650;
+    public static float startSpeed = 85;
     public static float startVolume = 80;
 
-    public static int adsCounter;
+    public static int adsCounter = 4;
 
     public static bool isAllowedFingerOffset;
     public static bool isRemoteConfigLoaded;
@@ -54,5 +54,13 @@ public class Settings
 
         onPlayerPrefsCallback?.Invoke();
         isPlayerPrefsLoaded = true;
+    }
+
+    public static bool IsInited()
+    {
+        if (isPlayerPrefsLoaded && isRemoteConfigLoaded)
+            return inited = true;
+        else 
+            return inited = false;
     }
 }

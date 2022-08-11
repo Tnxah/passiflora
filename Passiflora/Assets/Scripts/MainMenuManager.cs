@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class MainMenuManager : MonoBehaviour
 
     [SerializeField]
     private GameObject settingsPanel;
+    private float startLoadingTime;
 
     private void Awake()
     {
@@ -32,8 +34,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnFreePlayButton()
     {
-        SceneManager.LoadScene("Game");
-        GameManager.instance.ChangeState(GameScene.Game, GameState.Pause);
+        StartCoroutine(LoadPlayScene("Game"));
     }
 
     public void ShowHideSettings()
@@ -47,5 +48,14 @@ public class MainMenuManager : MonoBehaviour
 
         fingersOffsetToggle.isOn = Settings.isAllowedFingerOffset;
         volumeSlider.value = Settings.startVolume;
+    }
+
+    public IEnumerator LoadPlayScene(string sceneName)
+    {
+        startLoadingTime = Time.time;
+        yield return new WaitUntil(() => Settings.IsInited() || Time.time - startLoadingTime >= 5);
+
+        SceneManager.LoadScene(sceneName);
+        GameManager.instance.ChangeState(GameScene.Game, GameState.Pause);
     }
 }
