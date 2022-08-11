@@ -58,7 +58,7 @@ public class Settings
 
     public static bool IsInited()
     {
-        if (isPlayerPrefsLoaded && isRemoteConfigLoaded)
+        if (inited || (isPlayerPrefsLoaded && isRemoteConfigLoaded))
             return inited = true;
         else 
             return inited = false;

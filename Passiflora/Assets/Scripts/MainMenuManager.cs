@@ -44,6 +44,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void ShowHideSettings()
     {
+        Settings.LoadPlayerPrefs();
         settingsPanel.SetActive(!settingsPanel.activeSelf);
     }
 
