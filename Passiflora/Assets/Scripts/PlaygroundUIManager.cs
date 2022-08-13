@@ -16,6 +16,7 @@ public class PlaygroundUIManager : MonoBehaviour
 
     public TextMeshProUGUI[] scoreText;
 
+    public SpriteRenderer background;
 
     private void Awake()
     {
@@ -24,7 +25,7 @@ public class PlaygroundUIManager : MonoBehaviour
             instance = this;
         }
 
-        Camera.main.backgroundColor = Settings.backgroundColor;
+        background.color = Settings.backgroundColor;
         deathPanel.GetComponent<Image>().color = Settings.panelsColor;
 
         leaderboard.gameObject.SetActive(Settings.isConnectedToPlayServices);

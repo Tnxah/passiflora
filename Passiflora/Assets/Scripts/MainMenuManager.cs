@@ -19,6 +19,8 @@ public class MainMenuManager : MonoBehaviour
 
     private float startLoadingTime;
 
+    public SpriteRenderer background;
+
     private void Awake()
     {
         Settings.onPlayerPrefsCallback += Init;
@@ -27,7 +29,7 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         settingsPanel.GetComponent<Image>().color = Settings.backgroundColor;
-        Camera.main.backgroundColor = Settings.backgroundColor;
+        background.color = Settings.backgroundColor;
     }
     public void AllowOffset(bool state)
     {
