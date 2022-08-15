@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Unity.RemoteConfig;
 using System.Threading;
+using System;
 
 public class RemoteConfig : MonoBehaviour
 {
@@ -65,7 +66,7 @@ public class RemoteConfig : MonoBehaviour
 
         finished = true;
     }
-    
+
     public float GetStartSpeed()
     {
         return startSpeed;

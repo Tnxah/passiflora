@@ -12,6 +12,9 @@ public class MainMenuManager : MonoBehaviour
     private Slider volumeSlider;
 
     [SerializeField]
+    private Slider fingerOffsetSlider;
+
+    [SerializeField]
     private GameObject settingsPanel;
 
     [SerializeField]
@@ -28,8 +31,8 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-        settingsPanel.GetComponent<Image>().color = Settings.backgroundColor;
-        background.color = Settings.backgroundColor;
+        //settingsPanel.GetComponent<Image>().color = Settings.backgroundColor;
+        //background.color = Settings.backgroundColor;
     }
     public void AllowOffset(bool state)
     {
@@ -56,6 +59,8 @@ public class MainMenuManager : MonoBehaviour
 
         fingersOffsetToggle.isOn = Settings.isAllowedFingerOffset;
         volumeSlider.value = Settings.startVolume;
+
+        fingerOffsetSlider.value = Settings.fingerOffset * 10;
     }
 
     public IEnumerator LoadPlayScene(string sceneName)
@@ -65,5 +70,13 @@ public class MainMenuManager : MonoBehaviour
 
         SceneManager.LoadScene(sceneName);
         GameManager.instance.ChangeState(GameScene.Game, GameState.Pause);
+    }
+
+
+    public void SetFingerOffset(float value)
+    {
+        Settings.fingerOffset = value / 10;
+        PlayerPrefs.SetFloat("FingerOffsetDistance", value);
+        print(value);
     }
 }

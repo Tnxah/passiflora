@@ -8,6 +8,7 @@ public class Settings
     public static float maxSpeed = 650;
     public static float startSpeed = 85;
     public static float startVolume = 80;
+    public static float fingerOffset;
 
     public static int adsCounter = 4;
 
@@ -38,8 +39,6 @@ public class Settings
         maxSpeed = RemoteConfig.instance.GetMaxSpeed();
         adsCounter = RemoteConfig.instance.GetAdsCounter();
 
-        Debug.Log("speed " + startSpeed + "mspeed " + maxSpeed + "acounter " + adsCounter);
-
         onRemoteConfigCallback?.Invoke();
         isRemoteConfigLoaded = true;
     }
@@ -50,7 +49,10 @@ public class Settings
             startVolume = PlayerPrefs.GetFloat("MusicVol");
         if (PlayerPrefs.HasKey("FingersOffset"))
             isAllowedFingerOffset = PlayerPrefs.GetString("FingersOffset").Equals("True");
-        Debug.Log("PrefsSettingsLoad" + startVolume + " " + isAllowedFingerOffset);
+        if (PlayerPrefs.HasKey("FingerOffsetDistance"))
+            fingerOffset = PlayerPrefs.GetFloat("FingerOffsetDistance") / 10;
+        
+        Debug.Log("PrefsSettingsLoad" + startVolume + " " + isAllowedFingerOffset + " " + fingerOffset);
 
         onPlayerPrefsCallback?.Invoke();
         isPlayerPrefsLoaded = true;

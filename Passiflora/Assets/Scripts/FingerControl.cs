@@ -12,7 +12,7 @@ public class FingerControl : MonoBehaviour
     public GameObject first;
     public GameObject second;
 
-    public float fingerOffset = .8f;
+    public float fingerOffset;
 
     private void Start()
     {
@@ -20,6 +20,8 @@ public class FingerControl : MonoBehaviour
         {
             instance = this;
         }
+
+        fingerOffset = Settings.fingerOffset;
     }
 
     // Update is called once per frame

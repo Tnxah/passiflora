@@ -21,7 +21,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     //[HideInInspector]
     public int numberToAd;
     //[SerializeField]
-    public static int countToAd = 2;
+    public static int countToAd = 4;
     Action onRewardedAdSuccess;
     public static AdsManager instance;
 
