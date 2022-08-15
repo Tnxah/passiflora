@@ -26,15 +26,23 @@ public class GooglePlayServicesManager : MonoBehaviour
         PlayGamesPlatform.Activate();
         PlayGamesPlatform.DebugLogEnabled = true;
 
-        Authenticate();
+        Authenticate(true);
 
         inited = true;
     }
 
 
 
-    private void Authenticate()
+    public void Authenticate(bool forceAuthenticate)
     {
+        if (!forceAuthenticate)
+        {
+            if (Settings.isConnectedToPlayServices)
+                return;
+            if (!GameManager.firstBoot)
+                return;
+        }
+
         PlayGamesPlatform.Instance.Authenticate((success, message) => {
 
             if (success)
@@ -53,7 +61,7 @@ public class GooglePlayServicesManager : MonoBehaviour
     public void SaveScore(int score)
     {
         if (!Settings.isConnectedToPlayServices)
-            return;
+            Authenticate(false);
 
         Social.ReportScore(score, GPGSIds.leaderboard_leaderboard, (success) =>
         {
@@ -66,6 +74,7 @@ public class GooglePlayServicesManager : MonoBehaviour
 
     public void ShowLeaderboard()
     {
+        Authenticate(false);
         PlayGamesPlatform.Instance.ShowLeaderboardUI();
     }
 
