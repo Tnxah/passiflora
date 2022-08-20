@@ -56,7 +56,6 @@ public class PlaygroundManager : MonoBehaviour
         GameManager.instance.ChangeState(GameManager.gameScene, GameState.Play);
 
         PlaygroundUIManager.instance.OnPlay();
-        print("Obst launch");
         obstacleSpawner.Launch();
         StartCoroutine(ScoreIncreaser());
         StartCoroutine(SpeedIncreaser());
@@ -120,14 +119,12 @@ public class PlaygroundManager : MonoBehaviour
     }
     public void PauseGame()
     {
-        print("Time scale 0");
         Time.timeScale = 0;
         GameManager.instance.ChangeState(GameManager.gameScene, GameState.Pause);
     }
 
     public void ResumeGame()
     {
-        print("Time scale 1");
         Time.timeScale = 1;
     }
 }

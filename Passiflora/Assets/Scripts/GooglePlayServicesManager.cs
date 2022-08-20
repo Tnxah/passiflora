@@ -26,7 +26,7 @@ public class GooglePlayServicesManager : MonoBehaviour
         PlayGamesPlatform.Activate();
         PlayGamesPlatform.DebugLogEnabled = true;
 
-        Authenticate(true);
+        Authenticate(false);
 
         inited = true;
     }
